@@ -70914,13 +70914,13 @@ async function Write(exitCode, eventJSON) {
     });
     await core.summary
       .addHeading("⬆️ The above check was done only for the last commit ⬆️")
-      .addHeading("⬇️ The following check was performed for the entire history of the repository ⬇️")
+      .addHeading("⬇️ The following check was done for all repository history ⬇️")
       .addHeading("🛑 Gitleaks detected secrets 🛑")
       .addTable([resultsHeader, ...resultsRows])
       .write();
   } else if (exitCode == EXIT_CODE_NO_LEAKS_DETECTED) {
     await core.summary.addHeading("⬆️ The above check was done only for the last commit ⬆️")
-    await core.summary.addHeading("⬇️ The following check was performed for the entire history of the repository ⬇️")
+    await core.summary.addHeading("⬇️ The following check was done for all repository history ⬇️")
     await core.summary.addHeading("No leaks detected ✅").write();
   } else if (exitCode == EXIT_CODE_GITLEAKS_ERROR) {
     await core.summary.addHeading(`❌ Gitleaks exited with error. Exit code [${exitCode}]`).write();
