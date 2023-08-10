@@ -70895,12 +70895,8 @@ async function Write(exitCode, eventJSON) {
     let resultsRows = [[]];
     let resultsHeader = [
       { data: "Rule ID", header: true },
-      { data: "Commit", header: true },
       { data: "Secret URL", header: true },
       { data: "Start Line", header: true },
-      { data: "Author", header: true },
-      { data: "Date", header: true },
-      { data: "Email", header: true },
       { data: "File", header: true },
     ];
     const sarif = JSON.parse(readFileSync("results.sarif", "utf8"));
