@@ -70913,7 +70913,9 @@ async function Write(exitCode, eventJSON) {
       ]);
     });
     await core.summary
-      .addHeading("🛑 Gitleaks detected secrets - for all repository history🛑")
+      .addHeading("⬆️ The above check was done only for the last commit ⬆️")
+      .addHeading()
+      .addHeading("🛑 Gitleaks detected secrets - for all repository history 🛑")
       .addTable([resultsHeader, ...resultsRows])
       .write();
   } else if (exitCode == EXIT_CODE_NO_LEAKS_DETECTED) {
