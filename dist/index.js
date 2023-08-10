@@ -70907,17 +70907,13 @@ async function Write(exitCode, eventJSON) {
       const fileURL = `${repo_url}/blob/master/${result.locations[0].physicalLocation.artifactLocation.uri}`;
       resultsRows.push([
         result.ruleId,
-        `<a href="${commitURL}">${commitSha.substring(0, 7)}</a>`,
         `<a href="${secretURL}">View Secret</a>`,
         result.locations[0].physicalLocation.region.startLine.toString(),
-        result.partialFingerprints.author,
-        result.partialFingerprints.date,
-        result.partialFingerprints.email,
         `<a href="${fileURL}">${result.locations[0].physicalLocation.artifactLocation.uri}</a>`,
       ]);
     });
     await core.summary
-      .addHeading("🛑 Gitleaks detected secrets 🛑")
+      .addHeading("🛑 Gitleaks detected secrets - for all repository history🛑")
       .addTable([resultsHeader, ...resultsRows])
       .write();
   } else if (exitCode == EXIT_CODE_NO_LEAKS_DETECTED) {
