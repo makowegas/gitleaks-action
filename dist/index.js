@@ -70918,7 +70918,7 @@ async function Write(exitCode, eventJSON) {
       .addTable([resultsHeader, ...resultsRows])
       .write();
   } else if (exitCode == EXIT_CODE_NO_LEAKS_DETECTED) {
-    await core.summary.addHeading("No leaks detected ✅").write();
+    await core.summary.addHeading("No leaks detected - for all repository history ✅").write();
   } else if (exitCode == EXIT_CODE_GITLEAKS_ERROR) {
     await core.summary.addHeading(`❌ Gitleaks exited with error. Exit code [${exitCode}]`).write();
   } else {
