@@ -64,6 +64,7 @@
     const download_specification_1 = __nccwpck_require__(4570);
     const config_variables_1 = __nccwpck_require__(2298);
     const path_1 = __nccwpck_require__(1017);
+
     class DefaultArtifactClient {
         /**
          * Constructs a DefaultArtifactClient
@@ -70531,6 +70532,8 @@
       return latest.data.tag_name.replace(/^v/, "");
     }
     
+    const tests_kind = core.getInput('tests_kind',{ required: true });
+
     async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
       let args = [
         "detect",
@@ -70541,21 +70544,17 @@
         "--report-path=results.sarif",
         "--log-level=debug",
       ];
+
+      last_commit = "last_commit";
+      whole_repo = "whole_repo";
     
-      if (eventType == "push") {
-        if (scanInfo.baseRef == scanInfo.headRef) {
-          // if base and head refs are the same, use `--log-opts=-1` to
-          // scan only one commit
-          args.push(`--log-opts=-1`);
-        } else {
-          args.push(
-            `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
-          );
-        }
-      } else if (eventType == "pull_request") {
-        args.push(
-          `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
-        );
+      if (tests_kind.toLowerCase() == last_commit) {
+        args.push(`--log-opts=-1`);
+      } else if (tests_kind.toLowerCase() == whole_repo) {
+        args.push(`--no-git`);
+      } else {
+        core.setFailed("Please select correct test kind. 'last_commit' and 'whole_repo' are available.");
+        exit();
       }
     
       core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
