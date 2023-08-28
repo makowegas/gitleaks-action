@@ -14,6 +14,8 @@ const artifact = require("@actions/artifact");
 
 const EXIT_CODE_LEAKS_DETECTED = 2;
 
+const tests_kind = core.getInput('tests_kind',{ required: true });
+
 // TODO: Make a gitleaks class with an octokit attribute so we don't have to pass in the octokit to every method.
 
 // Install will download the version of gitleaks specified in GITLEAKS_VERSION
@@ -98,8 +100,19 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
     "--report-format=sarif",
     "--report-path=results.sarif",
     "--log-level=debug",
-    "--no-git",
   ];
+
+  last_commit = "last_commit";
+  whole_repo = "whole_repo";
+
+  if (tests_kind.toLowerCase() == last_commit) {
+    args.push(`--log-opts=-1`);
+  } else if (tests_kind.toLowerCase() == whole_repo) {
+    args.push(`--no-git`);
+  } else {
+    core.setFailed("Please select correct test kind. 'last_commit' and 'whole_repo' are available.");
+    exit();
+  }
   
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
   let exitCode = await exec.exec("gitleaks", args, {

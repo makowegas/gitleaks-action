@@ -9,6 +9,11 @@ branding:
   icon: "git-pull-request"
   color: "purple"
 description: run gitleaks on push and pull-request events
+inputs:
+  tests_kind: 
+    description: 'last_commit or whole_repo'
+    required: true
+    default: 'whole_repo'
 runs:
   using: "node16"
   main: "dist/index.js"
