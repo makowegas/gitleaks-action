@@ -70904,7 +70904,9 @@
       const EXIT_CODE_NO_LEAKS_DETECTED = 0;
       const EXIT_CODE_GITLEAKS_ERROR = 1;
       const EXIT_CODE_LEAKS_DETECTED = 2;
-    
+      
+        last_commit = "last_commit";
+        whole_repo = "whole_repo";
         if (tests_kind.toLowerCase() == last_commit) {
             if (exitCode == EXIT_CODE_LEAKS_DETECTED) {
                 let resultsRows = [[]];
