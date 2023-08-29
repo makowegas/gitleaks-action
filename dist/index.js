@@ -70976,6 +70976,7 @@
                 await core.summary.addHeading(`❌ Gitleaks exited with error. Exit code [${exitCode}]`).write();
             } else {
                 await core.summary.addHeading(`❌ Gitleaks exited with unexpected exit code [${exitCode}]`).write();
+            }
         }
     }
     
